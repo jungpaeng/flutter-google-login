@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'account_page.dart';
 import 'home_page.dart';
+import 'search_page.dart';
 
 class TabPage extends StatefulWidget {
   @override
@@ -9,7 +10,7 @@ class TabPage extends StatefulWidget {
 
 class _TabPageState extends State<TabPage> {
   int _selectedTabIdx = 0;
-  List _pages = [HomePage(), Text('page2'), AccountPage()];
+  List _pages = [HomePage(), SearchPage(), AccountPage()];
 
   @override
   Widget build(BuildContext context) {
