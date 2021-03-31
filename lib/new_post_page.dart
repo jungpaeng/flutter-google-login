@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class NewPostPage extends StatefulWidget {
   @override
@@ -7,6 +10,9 @@ class NewPostPage extends StatefulWidget {
 
 class _NewPostPageState extends State<NewPostPage> {
   final textEditingController = TextEditingController();
+
+  File _image;
+  final picker = ImagePicker();
 
   @override
   void dispose() {
@@ -21,6 +27,7 @@ class _NewPostPageState extends State<NewPostPage> {
       body: _buildBody(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add_a_photo),
+        onPressed: () => _getImage(),
       ),
     );
   }
@@ -34,20 +41,31 @@ class _NewPostPageState extends State<NewPostPage> {
   }
 
   Widget _buildBody() {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 8),
-          child: Text(
-            'No Image',
-            textAlign: TextAlign.center,
-          ),
-        ),
-        TextField(
-          decoration: InputDecoration(hintText: 'Input Content'),
-          controller: textEditingController,
-        )
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          _image == null
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 8, bottom: 8),
+                  child: Text('No Image', textAlign: TextAlign.center),
+                )
+              : Image.file(_image),
+          TextField(
+            decoration: InputDecoration(hintText: 'Input Content'),
+            controller: textEditingController,
+          )
+        ],
+      ),
     );
+  }
+
+  Future<void> _getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      }
+    });
   }
 }
