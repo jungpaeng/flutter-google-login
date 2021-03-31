@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/root_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,53 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyAppState(title: 'Hello, World'),
+      home: RootPage(),
     );
-  }
-}
-
-class MyAppState extends StatefulWidget {
-  final String title;
-  MyAppState({Key key, this.title}) : super(key: key);
-
-  @override
-  _MyAppStateState createState() => _MyAppStateState();
-}
-
-class _MyAppStateState extends State<MyAppState> {
-  int _num = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Counter', style: TextStyle(fontSize: 30)),
-            Text('$_num', style: TextStyle(fontSize: 30)),
-            ElevatedButton(
-                child: Text('화면 이동'),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MyAppState(title: '')));
-                })
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: _clickedButton,
-      ),
-    );
-  }
-
-  void _clickedButton() {
-    setState(() {
-      _num++;
-    });
   }
 }
