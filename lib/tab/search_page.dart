@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/new_post_page.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -12,7 +13,10 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(),
       body: _buildBody(),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => NewPostPage()));
+        },
         backgroundColor: Colors.blue,
         child: Icon(Icons.create),
       ),
